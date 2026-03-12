@@ -11,7 +11,7 @@ use App\Models\InternshipPlacement;
 class Application extends Model
 {
     protected $fillable = [
-        'motivation_letter',
+        'motivation_letter',    
         'is_approved',
         'approved_at',
     ];

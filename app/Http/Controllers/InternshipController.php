@@ -12,15 +12,14 @@ class InternshipController extends Controller
      */
     public function index()
     {
-        //
-    }
+        //No status code control
+        // return Internship::all();
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
+        // Explict JSON with status code, and extra info in the response
+        return response()->json([
+            'message' => 'Succeeded',
+            'data' => Internship::all()
+        ], 200);
     }
 
     /**
@@ -28,7 +27,9 @@ class InternshipController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // After sending a post request, you can see newly created internship with its id in the response
+        $internship = Internship::create($request->all());
+        return response()->json($internship, 201);
     }
 
     /**
@@ -36,15 +37,8 @@ class InternshipController extends Controller
      */
     public function show(Internship $internship)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Internship $internship)
-    {
-        //
+        // Laravel automatically finds the internship by id from the URL and returns it as JSON
+        return response()->json($internship, 200);
     }
 
     /**
@@ -52,7 +46,9 @@ class InternshipController extends Controller
      */
     public function update(Request $request, Internship $internship)
     {
-        //
+        // Updading an existing record
+        $internship->update($request->all());
+        return response()->json($internship, 200);
     }
 
     /**
@@ -60,6 +56,8 @@ class InternshipController extends Controller
      */
     public function destroy(Internship $internship)
     {
-        //
+        // Deletes the record and returns 204
+        $internship->delete();
+        return response()->json(null, 204);
     }
 }
