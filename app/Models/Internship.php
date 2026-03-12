@@ -3,15 +3,14 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\AssesmentType;
-use app\Models\Group;
-use app\Models\Company;
-use app\Models\InternshipApplication;
+use App\Models\AssesmentType;
+use App\Models\Group;
+use App\Models\Company;
+use App\Models\Application;
 
 class Internship extends Model
 {
     protected $fillable = [
-        'id',
         'company_id',
         'group_id',
         'title',
@@ -39,6 +38,6 @@ class Internship extends Model
 
     // Internship has many applications
     public function applications() {
-        return $this->hasMany(InternshipApplication::class);
+        return $this->hasMany(Application::class);
     }
 }

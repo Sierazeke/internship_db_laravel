@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Application;
-use app\Models\User;
+use App\Models\Application;
+use App\Models\User;
 
 class Evaluation extends Model
 {

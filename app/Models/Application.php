@@ -3,10 +3,10 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\User;
-use app\Models\Internship;
-use app\Models\Evaluation;
-use app\Models\InternshipPlacement;
+use App\Models\User;
+use App\Models\Internship;
+use App\Models\Evaluation;
+use App\Models\InternshipPlacement;
 
 class Application extends Model
 {

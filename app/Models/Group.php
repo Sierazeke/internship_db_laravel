@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\GroupMember;
-use app\Models\Internship;
+use App\Models\GroupMember;
+use App\Models\Internship;
 
 class Group extends Model
 {

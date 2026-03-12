@@ -3,7 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Internship;
+use App\Models\Internship;
 
 class AssesmentType extends Model
 {

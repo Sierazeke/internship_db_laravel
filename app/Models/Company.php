@@ -3,8 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use app\Models\Internship;
-use app\Models\InternshipPlacement;
+use App\Models\Internship;
+use App\Models\InternshipPlacement;
 
 class Company extends Model
 {
