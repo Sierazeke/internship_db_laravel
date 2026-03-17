@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('applications', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('internship_id')->constrained('internships')->onDelete('cascade');
+            $table->text('motivation_letter')->nullable();
+            $table->boolean('is_approved')->default(false);
+            $table->timestamp('approved_at')->nullable();
             $table->timestamps();
         });
     }
