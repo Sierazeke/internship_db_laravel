@@ -6,6 +6,7 @@ use App\Models\Application;
 use App\Services\ApplicationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 class ApplicationController extends Controller
 {
@@ -93,5 +94,55 @@ class ApplicationController extends Controller
     public function destroy(Application $application)
     {
         //
+    }
+
+    /**
+     * Create application using stored procedure.
+     */
+    public function storeWithProcedure(Request $request): JsonResponse
+    {
+        $request->validate([
+            'user_id' => 'required|integer|exists:users,id',
+            'internship_id' => 'required|integer|exists:internships,id',
+            'motivation_letter' => 'nullable|string|max:2000',
+        ]);
+
+        try {
+            $applicationId = null;
+            $errorMessage = null;
+
+            // Call stored procedure
+            DB::statement(
+                'CALL create_application_with_validation(?, ?, ?, @p_application_id, @p_error_message)',
+                [
+                    $request->input('user_id'),
+                    $request->input('internship_id'),
+                    $request->input('motivation_letter'),
+                ]
+            );
+
+            // Get output parameters
+            $result = DB::select('SELECT @p_application_id AS application_id, @p_error_message AS error_message');
+            
+            if (isset($result[0]->application_id)) {
+                $application = Application::find($result[0]->application_id);
+
+                return response()->json([
+                    'success' => true,
+                    'message' => 'Pieteikums veiksmīgi izveidots, izmantojot saglabāto procedūru.',
+                    'data' => $application,
+                ], 201);
+            } else {
+                return response()->json([
+                    'success' => false,
+                    'message' => $result[0]->error_message ?? 'Nezināma kļūda.',
+                ], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage(),
+            ], 400);
+        }
     }
 }

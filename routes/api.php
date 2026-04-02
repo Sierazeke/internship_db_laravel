@@ -13,3 +13,4 @@ Route::get('/user', function (Request $request) {
 
 Route::apiResource('internships', InternshipController::class);
 Route::apiResource('applications', ApplicationController::class);
+Route::post('/applications-procedure', [ApplicationController::class, 'storeWithProcedure']);

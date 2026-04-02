@@ -8,12 +8,11 @@ use App\Models\Internship;
 class AssesmentType extends Model
 {
     protected $fillable = [
-        'id',
         'name',
     ];
 
     // An assessment type can have one internship
-    public function assessments() {
-        return $this->hasOne(Internship::class);
+    public function internships() {
+        return $this->hasMany(Internship::class, 'assessment_id');
     }
 }
